@@ -13,7 +13,7 @@ test:  ## Test preact files
 	
 ##@ Build
 
-build: init lint test
+build: init
 	npm run build
 
 clean:

@@ -9,7 +9,7 @@ import (
 	"net/http"
 )
 
-//go:embed all:app/build
+//go:embed all:app/dist
 var nextFS embed.FS
 
 func main() {

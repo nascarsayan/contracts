@@ -1,4 +1,4 @@
-BINARY=preact
+BINARY=contracts
 BINARY_DIR=bin
 BINARY_PATH=$(BINARY_DIR)/$(BINARY)
 

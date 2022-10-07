@@ -1,3 +1,3 @@
-module github.com/debdut/go-next
+module github.com/nascarsayan/contracts
 
 go 1.18

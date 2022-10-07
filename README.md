@@ -1,8 +1,8 @@
-# go-preact
+# Contracts
 
->  `go-preact` is a template to create portable server apps with preact frontend in a single binary executable.
+>  `contracts` is a SaaS for creating all legal contracts.
 
-## Usage
+## Dev Instructions
 
 ```sh
 # build

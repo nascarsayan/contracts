@@ -9,6 +9,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@types/jspdf": "^2.0.0",
+    "dexie": "^3.2.2",
+    "jspdf": "^2.5.1",
     "preact": "^10.10.6",
     "preact-router": "^4.1.0"
   },

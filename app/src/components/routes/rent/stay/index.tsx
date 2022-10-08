@@ -1,15 +1,49 @@
+import { useEffect, useState } from "preact/hooks";
 import { route } from "preact-router";
 
+import { db, IProperty, IContract, ITenant, IOwner } from "../../../../db";
 import { FormElement, SubmitButton } from "../../../form";
-import TextCard from "../../../textcard";
 
-export type Props = {
 
-}
+export default function Stay() {
+  const [duration, setDuration] = useState<string>("11");
+  const [rent, setRent] = useState<string>("");
+  const [deposit, setDeposit] = useState<string>("");
+  const [startDate, setStartDate] = useState<string>("");
+  const [endDate, setEndDate] = useState<string>("");
+  const [signDate, setSignDate] = useState<string>("");
+  const [payDate, setPayDate] = useState<string>("");
 
-export default function Owner({} : Props) {
-  const onSubmit = (e: Event) => {
+  const getContract = (): IContract => {
+    const owner =
+      JSON.parse(localStorage.getItem("owner") || "{}") as IOwner;
+    const property = 
+      JSON.parse(localStorage.getItem("property") || "{}") as IProperty;
+    const tenant =
+      JSON.parse(localStorage.getItem("tenant") || "{}") as ITenant;
+
+    return {
+      owner,
+      property,
+      tenant,
+      duration: parseInt(duration),
+      rent: parseFloat(rent),
+      deposit: parseFloat(deposit),
+      startDate: new Date(startDate),
+      endDate: new Date(endDate),
+      signDate: new Date(signDate),
+      paydate: parseInt(payDate),
+    };
+  };
+
+  const onSubmit = async (e: Event) => {
     e.preventDefault();
+    const contract = getContract();
+
+    await (db.contracts.add(contract));
+    
+    localStorage.setItem("contract", JSON.stringify(contract));
+    
     route("/rent/done");
   };
 
@@ -22,8 +56,48 @@ export default function Owner({} : Props) {
         the printing and typesetting industry.
         </p>
         <form class="">
-          <FormElement label="Stay Duration" value="" type="number" onChange={() => {}} />
-          <FormElement label="Number of People" value="" type="number" onChange={() => {}} />
+            <FormElement 
+            label="Duration in Months"
+            value={duration}
+            type="number" 
+            onChange={(e) => setDuration((e.target as HTMLInputElement).value)} />
+
+            <FormElement
+            label="Start Date"
+            value={startDate}
+            type="date"
+            onChange={(e) => setStartDate((e.target as HTMLInputElement).value)} />
+
+            <FormElement
+            label="End Date"
+            value={endDate}
+            type="date"
+            onChange={(e) => setEndDate((e.target as HTMLInputElement).value)} />
+
+            <FormElement
+            label="Rent"
+            value={rent}
+            type="number"
+            onChange={(e) => setRent((e.target as HTMLInputElement).value)} />
+
+            <FormElement
+            label="Deposit"
+            value={deposit}
+            type="number"
+            onChange={(e) => setDeposit((e.target as HTMLInputElement).value)} />
+
+            <FormElement
+            label="Due Date of Month"
+            value={payDate}
+            type="number"
+            onChange={(e) => setPayDate((e.target as HTMLInputElement).value)} />
+
+            <FormElement
+            label="Sign Date"
+            value={signDate}
+            type="date"
+            onChange={(e) => setSignDate((e.target as HTMLInputElement).value)} />
+
           <br />
           <SubmitButton text="Create Contract" onClick={onSubmit} />
         </form>

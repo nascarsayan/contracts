@@ -3,6 +3,21 @@ import { useEffect, useState } from "preact/hooks";
 import { IContract } from "../../../../db";
 
 export default function Done() {
+  const [pdf, setPDF] = useState<jsPDF | null>(null);
+  const [contract, setContract] = useState<IContract | null>(null);
+
+  useEffect(() => {
+    const contractJSON = localStorage.getItem("contract");
+    if (contractJSON) {
+      const contract = JSON.parse(contractJSON) as IContract;
+      const pdf = GenerateContractPDF(contract);
+
+      setContract(contract);
+      setPDF(pdf);
+    }
+
+  }, []);
+
   const clear = () => {
     localStorage.removeItem("contract");
     localStorage.removeItem("owner");
@@ -19,7 +34,9 @@ export default function Done() {
        Download the PDF now or you can retrive it anytime later.</p>
       <div class="space-x-2">
         <button
-        onClick={() => {}}>
+        onClick={() => {
+          pdf?.save("contract.pdf");
+        }}>
           Download PDF
         </button>
 
@@ -40,31 +57,25 @@ export default function Done() {
         </button>
       </div>
       <br />
-      <PDF />
+      {pdf && <PDF pdf={pdf} />}
     </div>
   )
 }
 
-function PDF() {
-  const [contract, setContract] = useState<IContract | null>(null);
-  const [pdf, setPDF] = useState<jsPDF | null>(null);
+interface PDFProps {
+  pdf: jsPDF;
+}
 
-  useEffect(() => {
-    const contractJSON = localStorage.getItem("contract");
-    if (contractJSON) {
-      const contract = JSON.parse(contractJSON) as IContract;
-      const pdf = GenerateContractPDF(contract);
-
-      setContract(contract);
-      setPDF(pdf);
-    }
-
-  }, []);
-
+function PDF({ pdf }: PDFProps) {
   return (
     <iframe
     class="mb-20"
-    style={{ display: pdf ? "block" : "none", width: "100%", height: "100vh" }}
+    style={{ 
+      display: pdf ? "block" : "none",
+      width: "100%",
+      height: "100vh",
+      borderRadius: "4px",
+    }}
     src={pdf?.output("datauristring")}
     frameBorder="0"></iframe>
   );

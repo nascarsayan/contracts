@@ -83,10 +83,126 @@ function PDF({ pdf }: PDFProps) {
 
 import { jsPDF } from "jspdf";
 
-function GenerateContractPDF(contract: IContract) {
-  const doc = new jsPDF();
+const [Width, Height] = [595.28, 841.89];
 
-  doc.text("Hello world!", 10, 10);
+function GenerateContractPDF(contract: IContract) {
+  const doc = new jsPDF({
+    orientation: "portrait",
+    unit: "pt",
+    format: "a4",
+  });
+
+  let marginX = 20;
+  let marginY = 60;
+  let currentY = Height * 2/3;
+  let currentX = Width / 2;
+  let fontWeight = "bold";
+  let fontSize = 30;
+  let lineGap = 20;
+
+  doc.setFontSize(fontSize);
+  doc.setFont("times", "normal", fontWeight);
+  doc.text("LICENSE AGREEMENT", currentX, currentY, { align: "center" });
+
+  currentY += fontSize + lineGap;
+  currentX = marginX;
+  fontSize = 16;
+  fontWeight = "normal";
+
+  doc.setFontSize(fontSize);
+  doc.setFont("times", "normal", fontWeight);
+
+  const text = `This License Agreement was made on the 1st of January, 2018
+
+BETWEEN
+
+SMT. ANIMA NASKAR, Wife of Chandra Sekhar Naskar, by faith Hindu, by Nationality Indian, by Occupation Housewife, residing at 25/159, P.K. Guha Road, P.O. Dum Dum, P.S. Dum Dum, Kolkata - 7000028, hereinafter called the "LICENSOR" (which terms or expression shall unless otherwise excluded by or repugnant to the context deemed to mean and include his legal heirs, executors, representatives and assigns) of the ONE PART.
+
+AND
+
+SRI JAYANTA DAS, Son of Sri Amal Krishna Das, by faith Hindu, by Nationality Indian, by Occupation Businessman, residing at Hizla Road, Barajirakpur, Bashirhat, P.S. Bashirhat, Pin 743412, hereinafter called the "LICENSEE" of the SECOND PART.
+WHEREAS the Licensor is the absolute Owner of Premises No. 45/B Kabi Mukunda Das Road, P.O. Rabindranagar, P.S. Dum Dum, Kolkata 700065, District North 24 Parganas..
+
+AND WHEREAS the Licensee has approached the licensor for permission of using One Bed Room, One Kitchen and One Toilet on first floor on said Premises under South Dum Dum Municipality, for temporary acaomodation for a period of 11 (Eleven) months only form the date of 1st Day of May 2018 to 31st Day of March 2019.
+
+NOW IT IS HEREBY AGREED AND DECLARED BY AND PARTIES as follows:
+
+1. That the licensee shall in consideration of such accomodation as hereunder provided pay the owner a fix sum of Rs. 33,000/- (Rupees Thirty Three Thousand) only for such temporary occupation for the periods of 11 (Eleven) months which sum wikk be paid Rs. 3,000/- (Rupees Three Thousand) only per month on the 10th day of every English current month as license fee.
+
+2. That the licensee shall use the said room only with his family which consists of licensee for residential purpose. He shall not use the same with any other person or use the same for any other business go down purposes.
+
+3. That the Licensee shall not do anything which will cause any nuisance or disturbances to the other occupiers & of the said building or to the neighborhood nor shall do or allow to be done any illegal immoral or any unlawful acts, in the Said room.
+
+4. That the licensee shall not transfer or sublet of the said room or any portion or any part thereof to anybody else.
+
+5. That the licensee shall keep the said room in neat and shall not damage the said rooms and common staircase and common passage.
+
+6. That the licensee shall not make any addition, alienation or any type of construction there to in the said rooms.
+
+7. That if any damage is done in the said rooms and common staircase by the Licensee or his men, the Licensee shall be liable to make good os the damage.
+
+8. That the licensee will deposit a sum of Rs. 7000/- (Rupees Seven Thousand) only as security money to the licensee. This amount will be adjusted to the last month againt any outstanding Licensee fee or any demurrage charges, if any, at the time to vacate the room by the Licensee, or if there is no such outstanding damage then the said amount will be refunded by the Licensee without any interest.
+
+9. That the licensee shall use the water of the said building from overhead tank as common. Also, Licensor will not be liable for failure of water supply due to Electric supply or any other reaso which is beyond the control of the licensor.
+
+10. The eletric charge will be paid as per consumption of the unit for the said rooms for the electricity that should be supplied by the Municipality.
+
+11. Water facility does not provide water supply from any other source.
+
+12. Licensee should inform the licensor three months before if he wants to cancel the agreement before completion of the agreement.
+
+13. If the licensee fails to vacate the said flat within the stipulated period of the licence, the licensee shall be evicted by the licensor without recourse to a Court of Law and the licensee shall be treated as a TRESPASSER. In such a case, if the licensee fails to remove the articles and things belonging to him and if they are found tying in the said premises, the licensor shall without being liable to any liability in any manner for any damage or loss that maybe caused, remove the same from the premises.
+
+14. IN WITNESS WHEREOF of the Parties hereto set and subscribed their respective hands on the day, month and year mentioned hereinabove.
+
+SIGNED, SEALED AND DELIVERED BY
+THE WITHIN NAMED LICENSOR/LICENSEE
+
+IN THE PRESENCE OF:
+`;
+
+  const lines = doc.splitTextToSize(
+    text,
+    Width - marginX * 2
+  ) as string[];
+
+  let pageLines = lines.slice(0, 10);
+  doc.text(pageLines, currentX, currentY);
+
+  let lineIndex = 10;
+  const linesPerPage = Math.trunc((Height - marginY * 2) / (1.15 * fontSize));
+  while (lineIndex < lines.length) {
+    currentY = marginY;
+    currentX = marginX;
+    pageLines = lines.slice(lineIndex, lineIndex + linesPerPage);
+    lineIndex += linesPerPage;
+
+    doc.addPage();
+    doc.text(pageLines, currentX, currentY);
+  }
+
+  currentY += (fontSize * 1.15) * pageLines.length + lineGap;
+  doc.text("1.", currentX, currentY);
+
+  currentX = Width * 2 / 3; 
+  currentY += 20;
+  doc.text("Signature of Licensor", currentX, currentY);
+
+  currentX -= 20;
+  currentY -= 20;
+  doc.line(currentX, currentY, currentX + Width * 1/3 - marginX, currentY);
+
+  currentX = marginX;
+  currentY += 60 + fontSize;
+  doc.text("2.", currentX, currentY);
+
+  currentX = Width * 2 / 3; 
+  currentY += 20;
+  doc.text("Signature of Licensee", currentX, currentY);
   
+  currentX -= 20;
+  currentY -= 20;
+  doc.line(currentX, currentY, currentX + Width * 1/3 - marginX, currentY);
+
   return doc;
 }

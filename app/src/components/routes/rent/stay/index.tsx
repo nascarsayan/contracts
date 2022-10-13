@@ -1,4 +1,4 @@
-import { useEffect, useState } from "preact/hooks";
+import { useMemo, useState } from "preact/hooks";
 import { route } from "preact-router";
 
 import { db, IProperty, IContract, ITenant, IOwner } from "../../../../db";
@@ -10,7 +10,15 @@ export default function Stay() {
   const [rent, setRent] = useState<string>("");
   const [deposit, setDeposit] = useState<string>("");
   const [startDate, setStartDate] = useState<string>("");
-  const [endDate, setEndDate] = useState<string>("");
+  const endDate = useMemo(() => {
+    if (startDate == "" || duration == "") {
+      return "";
+    }
+    const date = new Date(startDate);
+    date.setMonth(date.getMonth() + parseInt(duration));
+    date.setDate(date.getDate() - 1);
+    return date.toISOString().split('T')[0];
+  }, [startDate, duration]);
   const [signDate, setSignDate] = useState<string>("");
   const [payDate, setPayDate] = useState<string>("");
 
@@ -70,9 +78,10 @@ export default function Stay() {
 
             <FormElement
             label="End Date"
+            disabled={true}
             value={endDate}
             type="date"
-            onChange={(e) => setEndDate((e.target as HTMLInputElement).value)} />
+            onChange={() => {}} />
 
             <FormElement
             label="Rent"

@@ -6,10 +6,11 @@ export type FormElementProps = {
   type: string;
   onChange: (event: Event) => void;
   isTextArea?: boolean;
+  disabled?: boolean;
 }
 
 export function FormElement({
-   label, value, type, onChange, isTextArea = false
+   label, value, type, onChange, isTextArea = false, disabled = false,
 }: FormElementProps) {
   return (
     <div>
@@ -17,8 +18,8 @@ export function FormElement({
       class="block pt-2 pb-1 pl-2">{label}</label>
       {
         isTextArea
-        ? <textarea class="block w-full" value={value} onChange={onChange} />
-        : <input class="block w-full" type={type} value={value} onChange={onChange} />
+        ? <textarea class="block w-full" value={value} onChange={onChange} disabled={disabled} />
+        : <input class="block w-full" type={type} value={value} onChange={onChange} disabled={disabled} />
       }
     </div>
   );

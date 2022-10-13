@@ -24,12 +24,11 @@ export default function Owner() {
   };
 
   return (
-    <div class="flex">
-      <div class="w-1/2 p-10">
+    <div class="md:flex">
+      <div class="md:w-1/2 p-10">
         <h1>Owner Details</h1>
-        <p class="w-96">
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry.
+        <p class="lg:w-96">
+        The owner is the licensor of the property, who is renting it out.
         </p>
         <Form onSubmit={onSubmit} />
       </div>

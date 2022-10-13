@@ -42,7 +42,7 @@ export default function Done() {
         </button>
 
         <button
-          href="/contracts"
+          href="/rent/saved"
           onClick={() => {
             clear();
             route("/contracts");
@@ -71,7 +71,7 @@ interface PDFProps {
   pdf: jsPDF;
 }
 
-function PDF({ pdf }: PDFProps) {
+export function PDF({ pdf }: PDFProps) {
   return (
     <iframe
       class="mb-20"
@@ -91,7 +91,7 @@ import { jsPDF } from "jspdf";
 
 const [Width, Height] = [595.28, 841.89];
 
-function GenerateContractPDF(contract: IContract) {
+export function GenerateContractPDF(contract: IContract) {
   const doc = new jsPDF({
     orientation: "portrait",
     unit: "pt",

@@ -8,6 +8,7 @@ import Stay from "../routes/rent/stay";
 import Done from "../routes/rent/done";
 
 import "./index.css";
+import Saved from "../routes/rent/saved";
 
 export function App() {
   return (
@@ -20,6 +21,7 @@ export function App() {
         <Route path="/rent/tenant" component={Tenant} />
         <Route path="/rent/stay" component={Stay} />
         <Route path="/rent/done" component={Done} />
+        <Route path="/rent/saved" component={Saved} />
       </Router>
     </div>
   );

@@ -184,7 +184,7 @@ export function GenerateContractPDF(contract: IContract) {
       }, "")
       .trim();
     return n;
-  }
+  };
 
   const totalRentMoney = contract.rent * contract.duration;
 
@@ -339,8 +339,8 @@ IN THE PRESENCE OF:
     doc.text(pageLines, currentX, currentY);
   }
 
-  currentY += (fontSize * 1.15) * pageLines.length + lineGap;
-  if (currentY > Height/2) {
+  currentY += fontSize * 1.15 * pageLines.length + lineGap;
+  if (currentY > Height / 2) {
     currentY = marginY;
     doc.addPage();
   }

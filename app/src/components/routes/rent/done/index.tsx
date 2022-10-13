@@ -10,7 +10,6 @@ export default function Done() {
     const contractJSON = localStorage.getItem("contract");
     if (contractJSON) {
       const contract = JSON.parse(contractJSON) as IContract;
-      console.log(contract);
       const pdf = GenerateContractPDF(contract);
 
       setContract(contract);
@@ -99,26 +98,6 @@ function GenerateContractPDF(contract: IContract) {
     format: "a4",
   });
 
-  let marginX = 20;
-  let marginY = 60;
-  let currentY = (Height * 2) / 3;
-  let currentX = Width / 2;
-  let fontWeight = "bold";
-  let fontSize = 30;
-  let lineGap = 20;
-
-  doc.setFontSize(fontSize);
-  doc.setFont("times", "normal", fontWeight);
-  doc.text("LICENSE AGREEMENT", currentX, currentY, { align: "center" });
-
-  currentY += fontSize + lineGap;
-  currentX = marginX;
-  fontSize = 16;
-  fontWeight = "normal";
-
-  doc.setFontSize(fontSize);
-  doc.setFont("times", "normal", fontWeight);
-
   const withOrdinal = (num: number) => {
     const s = ["th", "st", "nd", "rd"];
     const v = num % 100;
@@ -149,7 +128,7 @@ function GenerateContractPDF(contract: IContract) {
     return `${street}, ${city}, ${state}, ${zip}`;
   };
 
-  function toNumberString(val: number) {
+  const toNumberString = (val: number) => {
     const ones = [
       "",
       "One ",
@@ -184,7 +163,7 @@ function GenerateContractPDF(contract: IContract) {
       "Eighty",
       "Ninety",
     ];
-    const chunks = ["Crore", "Lakh", "Thousand", "Hundred", "only"];
+    const chunks = ["Crore", "Lakh", "Thousand", "Hundred", ""];
     const num = val.toString();
     if (num.length > 9) return "overflow";
     const n = num
@@ -208,6 +187,26 @@ function GenerateContractPDF(contract: IContract) {
   }
 
   const totalRentMoney = contract.rent * contract.duration;
+
+  let marginX = 40;
+  let marginY = 60;
+  let currentY = (Height * 2) / 3;
+  let currentX = Width / 2;
+  let fontWeight = "bold";
+  let fontSize = 30;
+  let lineGap = 20;
+
+  doc.setFontSize(fontSize);
+  doc.setFont("times", "normal", fontWeight);
+  doc.text("LICENSE AGREEMENT", currentX, currentY, { align: "center" });
+
+  currentY += fontSize + lineGap;
+  currentX = marginX;
+  fontSize = 16;
+  fontWeight = "normal";
+
+  doc.setFontSize(fontSize);
+  doc.setFont("times", "normal", fontWeight);
 
   const text = `This License Agreement was made on the ${toDateString(
     contract.signDate
@@ -340,8 +339,12 @@ IN THE PRESENCE OF:
     doc.text(pageLines, currentX, currentY);
   }
 
-  doc.addPage();
-  currentY = marginY;
+  currentY += (fontSize * 1.15) * pageLines.length + lineGap;
+  if (currentY > Height/2) {
+    currentY = marginY;
+    doc.addPage();
+  }
+  currentY += 20;
   doc.text("1.", currentX, currentY);
 
   currentX = (Width * 2) / 3;

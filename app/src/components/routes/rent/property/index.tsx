@@ -73,6 +73,7 @@ function Form({ onSubmit }: FormProps) {
       setName(property.name);
       setDescription(property.description);
       setMunicipality(property.municipality);
+      setStreet(property.address.street);
       setCity(property.address.city);
       setState(property.address.state);
       setCountry(property.address.country);

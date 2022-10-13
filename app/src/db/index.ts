@@ -8,10 +8,13 @@ class AppDatabase extends Dexie {
     constructor () {
         super("AppDatabase");
         this.version(1).stores({
-            owners: "++id, name, guardian, relationToGuardian, faith, nationality, occupation, address",
-            tenants: "++id, name, guardian, relationToGuardian, faith, nationality, occupation, address",
-            properties: "++id, address, description, municipalty",
-            contracts: "++id, owner, tenant, property, startDate, endDate, rent, deposit, duration, paydate"
+          owners:
+            "++id, name, gender, guardian, relationToGuardian, faith, nationality, occupation, address",
+          tenants:
+            "++id, name, gender, guardian, relationToGuardian, faith, nationality, occupation, address",
+          properties: "++id, address, description, municipalty",
+          contracts:
+            "++id, owner, tenant, property, startDate, endDate, rent, deposit, duration, paydate",
         });
     }
 }
@@ -24,9 +27,15 @@ export interface Address {
     zip: string,
 }
 
+export enum Gender {
+  Male = "Male",
+  Female = "Female",
+}
+
 export interface IOwner {
   id?: number,
   name: string,
+  gender: Gender,
   guardian: string,
   relationToGuardian: string,
   faith: string,
@@ -38,6 +47,7 @@ export interface IOwner {
 export interface ITenant {
   id?: number,
   name: string,
+  gender: Gender,
   guardian: string,
   relationToGuardian: string,
   faith: string,

@@ -45,7 +45,7 @@ export default function Done() {
           href="/rent/saved"
           onClick={() => {
             clear();
-            route("/contracts");
+            route("/rent/saved");
           }}
         >
           View Contracts
@@ -252,9 +252,7 @@ ${toDateString(contract.endDate, true)}.
 NOW IT IS HEREBY AGREED AND DECLARED BY AND PARTIES as follows:
 
 1. That the licensee shall in consideration of such accomodation as hereunder \
-provided pay the owner a fix sum of \
-Rs. ${totalRentMoney.toLocaleString("en-IN")}/- \
-(Rupees ${toNumberString(totalRentMoney)}) \
+provided pay the owner \
 only for such temporary occupation for the periods of \
 ${contract.duration} \
 (${toNumberString(contract.duration)}) \

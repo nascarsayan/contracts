@@ -58,7 +58,7 @@ function Form({ onSubmit }: FormProps) {
   const [municipality, setMunicipality] = useState<string>("");
   const [street, setStreet] = useState<string>("");
   const [city, setCity] = useState<string>("");
-  const [state, setState] = useState<string>("");
+  const [state, setState] = useState<string>("West Bengal");
   const [country, setCountry] = useState<string>("India");
   const [zip, setZip] = useState<string>("");
 
@@ -194,7 +194,7 @@ function Form({ onSubmit }: FormProps) {
       />
 
       <br />
-      <SubmitButton text="Proceed to Property" onClick={onClick} />
+      <SubmitButton text="Proceed to Tenant" onClick={onClick} />
     </form>
   );
 }

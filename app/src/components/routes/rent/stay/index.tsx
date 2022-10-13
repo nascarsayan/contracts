@@ -19,7 +19,7 @@ export default function Stay() {
     return date.toISOString().split("T")[0];
   }, [startDate, duration]);
   const [signDate, setSignDate] = useState<string>("");
-  const [payDate, setPayDate] = useState<string>("");
+  const [payDate, setPayDate] = useState<string>("5");
 
   const getContract = (): IContract => {
     const owner = JSON.parse(localStorage.getItem("owner") || "{}") as IOwner;

@@ -27,12 +27,11 @@ export default function Property() {
   }
 
   return (
-    <div class="flex">
-      <div class="w-1/2 p-10">
+    <div class="md:flex">
+      <div class="md:w-1/2 p-10">
         <h1>Property Details</h1>
-        <p class="w-96">
-        Lorem Ipsum is simply dummy text of
-        the printing and typesetting industry.
+        <p class="lg:w-96">
+        Enter the details of the property you want to rent out.
         </p>
         <Form onSubmit={onSubmit}/>    
       </div>

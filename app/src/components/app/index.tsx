@@ -14,7 +14,7 @@ export function App() {
   return (
     <div class="page">
       <Router>
-        <Route path="/" component={Intro} />
+        <Route path="/" component={Saved} />
         <Route path="/rent/intro" component={Intro} />
         <Route path="/rent/owner" component={Owner} />
         <Route path="/rent/property" component={Property} />

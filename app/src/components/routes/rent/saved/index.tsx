@@ -16,22 +16,23 @@ export default function Saved() {
   }, []);
 
   return (
-    <div class="flex">
+    <div class="md:flex">
       <div class="p-10 w-1/2">
         <h1>View Contracts</h1>
-        <div class="space-x-2">
+        <div>
           <button
+            class="mr-2 mb-2"
+            href="/rent/intro"
             onClick={() => {
-              pdf?.save("contract.pdf");
+              route("/rent/intro");
             }}
-          >
+            >
             Download PDF
           </button>
 
           <button
-            href="/rent/intro"
             onClick={() => {
-              route("/rent/intro");
+              pdf?.save("contract.pdf");
             }}
           >
             Create New Contract

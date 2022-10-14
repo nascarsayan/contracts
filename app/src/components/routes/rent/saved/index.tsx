@@ -26,14 +26,18 @@ export default function Saved() {
             onClick={() => {
               route("/rent/intro");
             }}
-            >
+          >
             Create New Contract
           </button>
 
           <button
             class="mr-2 mb-2"
+            disabled={activeIndex === -1}
             onClick={() => {
-              pdf?.save("contract.pdf");
+              const contract = contracts[activeIndex];
+              const tenantName = contract.tenant.name.replace(/\s+/g, "_");
+              const date = contract.startDate.toISOString().split("T")[0];
+              pdf?.save(`contract-${tenantName}-${date}.pdf`);
             }}
           >
             Download PDF
@@ -41,7 +45,9 @@ export default function Saved() {
 
           <button
             class="mr-2 mb-2"
-            onClick={() => { console.log('TODO: inport data') }}
+            onClick={() => {
+              console.log("TODO: inport data");
+            }}
           >
             Import Data
           </button>
@@ -64,8 +70,9 @@ export default function Saved() {
               });
               const url = URL.createObjectURL(blob);
               const a = document.createElement("a");
+              const date = new Date().toISOString().split("T")[0];
               a.href = url;
-              a.download = "contracts-backup.json";
+              a.download = `contracts-backup-${date}.json`;
               a.target = "_blank";
               a.click();
               URL.revokeObjectURL(url);
@@ -107,7 +114,7 @@ interface CardProps {
   onDeleteClick: () => void;
 }
 
-function Card({ contract, active, onClick, onDeleteClick}: CardProps) {
+function Card({ contract, active, onClick, onDeleteClick }: CardProps) {
   let dates = "";
   try {
     dates =

@@ -35,7 +35,9 @@ export default function Done() {
       <div class="space-x-2">
         <button
           onClick={() => {
-            pdf?.save("contract.pdf");
+            const tenantName = contract?.tenant.name.replace(/\s+/g, "_");
+            const date = contract?.startDate.toISOString().split("T")[0];
+            pdf?.save(`contract-${tenantName}-${date}.pdf`);
           }}
         >
           Download PDF
@@ -234,8 +236,9 @@ by faith ${contract.tenant.faith}, by Nationality Indian, \
 by Occupation ${contract.tenant.occupation}, \
 residing at ${toAddressString(contract.tenant.address)}, \
 hereinafter called the "LICENSEE" of the SECOND PART.
+
 WHEREAS the Licensor is the absolute Owner of \
-${toAddressString(contract.owner.address)}
+${toAddressString(contract.owner.address)}.
 
 AND WHEREAS the Licensee has approached the licensor for permission of using \
 ${contract.property.description} \

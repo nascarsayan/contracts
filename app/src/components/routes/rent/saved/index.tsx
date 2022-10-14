@@ -16,8 +16,8 @@ export default function Saved() {
   }, []);
 
   return (
-    <div class="md:flex">
-      <div class="p-10 w-1/2">
+    <div class="md:flex page">
+      <div class="p-10 w-3/4">
         <h1>View Contracts</h1>
         <div>
           <button
@@ -27,15 +27,51 @@ export default function Saved() {
               route("/rent/intro");
             }}
             >
-            Download PDF
+            Create New Contract
           </button>
 
           <button
+            class="mr-2 mb-2"
             onClick={() => {
               pdf?.save("contract.pdf");
             }}
           >
-            Create New Contract
+            Download PDF
+          </button>
+
+          <button
+            class="mr-2 mb-2"
+            onClick={() => { console.log('TODO: inport data') }}
+          >
+            Import Data
+          </button>
+
+          <button
+            class="mr-2 mb-2"
+            onClick={async () => {
+              const owners = await db.owners.toArray();
+              const properties = await db.properties.toArray();
+              const tenants = await db.tenants.toArray();
+              const contracts = await db.contracts.toArray();
+              const data = {
+                owners,
+                properties,
+                tenants,
+                contracts,
+              };
+              const blob = new Blob([JSON.stringify(data)], {
+                type: "application/json",
+              });
+              const url = URL.createObjectURL(blob);
+              const a = document.createElement("a");
+              a.href = url;
+              a.download = "contracts-backup.json";
+              a.target = "_blank";
+              a.click();
+              URL.revokeObjectURL(url);
+            }}
+          >
+            Export Data
           </button>
         </div>
         <br />

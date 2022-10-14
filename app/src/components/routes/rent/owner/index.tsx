@@ -1,4 +1,4 @@
-import { useEffect, useState } from "preact/hooks";
+import { useEffect, useMemo, useState } from "preact/hooks";
 import { route } from "preact-router";
 
 import { db, Gender, IOwner } from "../../../../db";
@@ -28,7 +28,7 @@ export default function Owner() {
       <div class="md:w-1/2 p-10">
         <h1>Owner Details</h1>
         <p class="lg:w-96">
-        The owner is the licensor of the property, who is renting it out.
+          The owner is the licensor of the property, who is renting it out.
         </p>
         <Form onSubmit={onSubmit} />
       </div>
@@ -72,6 +72,24 @@ function Form({ onSubmit }: FormProps) {
 
   const [isSaved, setIsSaved] = useState<boolean>(false);
 
+  const requiredFields = [
+    name,
+    guardian,
+    relationToGuardian,
+    faith,
+    nationality,
+    occupation,
+    street,
+    city,
+    state,
+    country,
+    zip,
+  ]
+
+  const isVaild = useMemo(() => {
+    return (requiredFields.filter((field) => field === "").length === 0);
+  }, requiredFields);
+
   useEffect(() => {
     const listener = (e: CustomEvent) => {
       const owner = e.detail as IOwner;
@@ -101,6 +119,10 @@ function Form({ onSubmit }: FormProps) {
 
   const onClick = async (e: Event) => {
     e.preventDefault();
+    if (!isVaild) {
+      alert("Please fill all the fields");
+      return;
+    }
 
     const owner: IOwner = {
       name,

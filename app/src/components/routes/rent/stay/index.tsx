@@ -21,6 +21,12 @@ export default function Stay() {
   const [signDate, setSignDate] = useState<string>("");
   const [payDate, setPayDate] = useState<string>("5");
 
+  const requiredFields = [duration, rent, deposit, startDate, signDate, payDate];
+
+  const isVaild = useMemo(() => {
+    return (requiredFields.filter((field) => field === "").length === 0);
+  }, requiredFields);
+
   const getContract = (): IContract => {
     const owner = JSON.parse(localStorage.getItem("owner") || "{}") as IOwner;
     const property = JSON.parse(
@@ -46,6 +52,11 @@ export default function Stay() {
 
   const onSubmit = async (e: Event) => {
     e.preventDefault();
+    if (!isVaild) {
+      alert("Please fill all the fields");
+      return;
+    }
+    
     const contract = getContract();
 
     await db.contracts.add(contract);

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "preact/hooks";
+import { useEffect, useMemo, useState } from "preact/hooks";
 import { route } from "preact-router";
 
 import { db, IProperty } from "../../../../db";
@@ -28,7 +28,7 @@ export default function Property() {
       <div class="md:w-1/2 p-10">
         <h1>Property Details</h1>
         <p class="lg:w-96">
-        Enter the details of the property you want to rent out.
+          Enter the details of the property you want to rent out.
         </p>
         <Form onSubmit={onSubmit} />
       </div>
@@ -68,6 +68,12 @@ function Form({ onSubmit }: FormProps) {
 
   const [isSaved, setIsSaved] = useState<boolean>(false);
 
+  const requiredFields = [name, municipality, street, city, state, country, zip];
+
+  const isVaild = useMemo(() => {
+    return (requiredFields.filter((field) => field === "").length === 0);
+  }, requiredFields);
+
   useEffect(() => {
     const listener = (e: CustomEvent) => {
       const property = e.detail as IProperty;
@@ -93,6 +99,10 @@ function Form({ onSubmit }: FormProps) {
 
   const onClick = async (e: Event) => {
     e.preventDefault();
+    if (!isVaild) {
+      alert("Please fill all the fields");
+      return;
+    }
 
     const property: IProperty = {
       name,

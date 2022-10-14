@@ -1,4 +1,4 @@
-import { useEffect, useState } from "preact/hooks";
+import { useEffect, useMemo, useState } from "preact/hooks";
 import { route } from "preact-router";
 
 import { db, Gender, ITenant } from "../../../../db";
@@ -73,6 +73,24 @@ function Form({ onSubmit }: FormProps) {
 
   const [isSaved, setIsSaved] = useState<boolean>(false);
 
+  const requiredFields = [
+    name,
+    guardian,
+    relationToGuardian,
+    faith,
+    nationality,
+    occupation,
+    street,
+    city,
+    state,
+    country,
+    zip,
+  ]
+
+  const isVaild = useMemo(() => {
+    return (requiredFields.filter((field) => field === "").length === 0);
+  }, requiredFields);
+
   useEffect(() => {
     const listener = (e: CustomEvent) => {
       const tenant = e.detail as ITenant;
@@ -102,6 +120,10 @@ function Form({ onSubmit }: FormProps) {
 
   const onClick = async (e: Event) => {
     e.preventDefault();
+    if (!isVaild) {
+      alert("Please fill all the fields");
+      return;
+    }
 
     const tenant: ITenant = {
       name,

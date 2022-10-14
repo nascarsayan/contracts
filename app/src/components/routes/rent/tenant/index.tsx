@@ -41,6 +41,11 @@ export default function Tenant() {
             tenant={tenant}
             onClick={() => onClick(tenant, index)}
             active={index === activeIndex}
+            onDeleteClick={() => {
+              db.tenants.delete(tenant.id || -1).then(() => {
+                setTenants(tenants.filter((t) => t.id !== tenant.id));
+              });
+            }}
           />
         ))}
       </div>
@@ -264,9 +269,10 @@ interface CardProps {
   tenant: ITenant;
   active: boolean;
   onClick: () => void;
+  onDeleteClick: () => void;
 }
 
-function Card({ tenant, active, onClick }: CardProps) {
+function Card({ tenant, active, onClick, onDeleteClick}: CardProps) {
   return (
     <TextCard
       head={tenant.name}
@@ -278,6 +284,7 @@ function Card({ tenant, active, onClick }: CardProps) {
         tenant.address.country + " - " + tenant.address.zip,
       ]}
       onClick={onClick}
+      onDeleteClick={onDeleteClick}
       active={active}
     />
   );

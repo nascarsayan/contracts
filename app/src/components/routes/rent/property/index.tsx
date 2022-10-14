@@ -40,6 +40,11 @@ export default function Property() {
             property={property}
             onClick={() => onClick(property, index)}
             active={index === activeIndex}
+            onDeleteClick={() => {
+              db.properties.delete(property.id || -1).then(() => {
+                setProperties(properties.filter((p) => p.id !== property.id));
+              });
+            }}
           />
         ))}
       </div>
@@ -202,9 +207,10 @@ interface CardProps {
   property: IProperty;
   active: boolean;
   onClick: () => void;
+  onDeleteClick: () => void;
 }
 
-function Card({ property, active, onClick }: CardProps) {
+function Card({ property, active, onClick, onDeleteClick }: CardProps) {
   return (
     <TextCard
       head={property.name}
@@ -216,6 +222,7 @@ function Card({ property, active, onClick }: CardProps) {
         property.address.country + " - " + property.address.zip,
       ]}
       onClick={onClick}
+      onDeleteClick={onDeleteClick}
       active={active}
     />
   );

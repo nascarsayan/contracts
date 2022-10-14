@@ -9,12 +9,12 @@ class AppDatabase extends Dexie {
     super("AppDatabase");
     this.version(1).stores({
       owners:
-        "++id, name, gender, guardian, relationToGuardian, faith, nationality, occupation, address",
+        "++id, name, gender, guardian, relationToGuardian, faith, nationality, occupation, address, isDeleted",
       tenants:
-        "++id, name, gender, guardian, relationToGuardian, faith, nationality, occupation, address",
-      properties: "++id, address, description, municipalty",
+        "++id, name, gender, guardian, relationToGuardian, faith, nationality, occupation, address, isDeleted",
+      properties: "++id, address, description, municipalty, isDeleted",
       contracts:
-        "++id, owner, tenant, property, startDate, endDate, rent, deposit, duration, paydate",
+        "++id, owner, tenant, property, startDate, endDate, rent, deposit, duration, paydate, isDeleted",
     });
   }
 }
@@ -42,6 +42,7 @@ export interface IOwner {
   nationality: string;
   occupation: string;
   address: Address;
+  isDeleted?: boolean;
 }
 
 export interface ITenant {
@@ -54,16 +55,20 @@ export interface ITenant {
   nationality: string;
   occupation: string;
   address: Address;
+  isDeleted?: boolean;
 }
 
 export interface IProperty {
+  id?: number;
   address: Address;
   description: string;
   municipality: string;
   name: string;
+  isDeleted?: boolean;
 }
 
 export interface IContract {
+  id?: number;
   owner: IOwner;
   tenant: ITenant;
   property: IProperty;
@@ -74,6 +79,7 @@ export interface IContract {
   rent: number;
   paydate: number;
   deposit: number;
+  isDeleted?: boolean;
 }
 
 export const db = new AppDatabase();

@@ -2,16 +2,21 @@ export type Props = {
   head?: string;
   texts: string[];
   active?: boolean;
+  hidden?: boolean;
   onClick?: () => void;
+  onDeleteClick?: () => void;
 };
 
 export default function TextCard({
   texts,
   head,
   active = false,
+  hidden = false,
   onClick = () => {},
+  onDeleteClick = () => {},
 }: Props) {
   return (
+    <div class="flex items-start cursor-pointer" hidden={hidden}>
     <div
       class="px-4 py-2 rounded-lg"
       style={{
@@ -25,6 +30,13 @@ export default function TextCard({
           {text}
         </p>
       ))}
+    </div>
+    <button
+      class="-ml-16"
+      style={{
+        backgroundColor: active ? "#333" : "#1a1a1a",
+      }}
+      onClick={onDeleteClick}>❌</button>
     </div>
   );
 }

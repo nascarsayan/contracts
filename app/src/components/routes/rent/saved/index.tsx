@@ -78,7 +78,7 @@ export default function Saved() {
         {pdf && <PDF pdf={pdf} />}
       </div>
       <div class="space-y-4 pl-10" style={{ borderLeft: "1px solid #777" }}>
-        <h2>Saved Contracts</h2>
+        <h2>Presaved Contracts</h2>
         {contracts.map((contract, index) => (
           <Card
             key={index}
@@ -86,6 +86,11 @@ export default function Saved() {
             onClick={() => {
               setActiveIndex(index);
               setPDF(GenerateContractPDF(contract));
+            }}
+            onDeleteClick={() => {
+              db.contracts.delete(contract.id || -1).then(() => {
+                setContracts(contracts.filter((c) => c.id !== contract.id));
+              });
             }}
             active={index === activeIndex}
           />
@@ -99,9 +104,10 @@ interface CardProps {
   contract: IContract;
   active: boolean;
   onClick: () => void;
+  onDeleteClick: () => void;
 }
 
-function Card({ contract, active, onClick }: CardProps) {
+function Card({ contract, active, onClick, onDeleteClick}: CardProps) {
   let dates = "";
   try {
     dates =
@@ -121,6 +127,7 @@ function Card({ contract, active, onClick }: CardProps) {
         contract.property.address.city + ", " + contract.property.address.state,
       ]}
       onClick={onClick}
+      onDeleteClick={onDeleteClick}
       active={active}
     />
   );

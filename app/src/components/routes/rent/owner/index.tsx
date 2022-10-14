@@ -39,6 +39,11 @@ export default function Owner() {
             key={index}
             owner={owner}
             onClick={() => onClick(owner, index)}
+            onDeleteClick={() => {
+              db.owners.delete(owner.id || -1).then(() => {
+                setOwners(owners.filter((o) => o.id !== owner.id));
+              });
+            }}
             active={index === activeIndex}
           />
         ))}
@@ -263,9 +268,10 @@ interface CardProps {
   owner: IOwner;
   active: boolean;
   onClick: () => void;
+  onDeleteClick: () => void;
 }
 
-function Card({ owner, active, onClick }: CardProps) {
+function Card({ owner, active, onClick, onDeleteClick }: CardProps) {
   return (
     <TextCard
       head={owner.name}
@@ -277,6 +283,7 @@ function Card({ owner, active, onClick }: CardProps) {
         owner.address.country + " - " + owner.address.zip,
       ]}
       onClick={onClick}
+      onDeleteClick={onDeleteClick}
       active={active}
     />
   );

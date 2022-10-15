@@ -27,7 +27,7 @@ export default function Saved() {
               route("/rent/intro");
             }}
             >
-            Download PDF
+            Create New Contract
           </button>
 
           <button
@@ -35,7 +35,7 @@ export default function Saved() {
               pdf?.save("contract.pdf");
             }}
           >
-            Create New Contract
+            Download PDF
           </button>
         </div>
         <br />

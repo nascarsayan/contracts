@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host",
-    "build": "tsc && vite build",
+    "build": "tsc && vite build && cp src/assets/manifest.json dist/",
     "preview": "vite preview"
   },
   "dependencies": {

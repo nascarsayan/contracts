@@ -1,10 +1,11 @@
 import { useEffect, useState } from "preact/hooks";
 import { route } from "preact-router";
 
-import { db, IContract } from "../../../../db";
+import { db, IContract, IOwner, IProperty, ITenant } from "../../../../db";
 import TextCard from "../../../textcard";
 import jsPDF from "jspdf";
 import { GenerateContractPDF, PDF } from "../done";
+import { FormElement } from "../../../form";
 
 export default function Saved() {
   const [contracts, setContracts] = useState<IContract[]>([]);
@@ -43,17 +44,66 @@ export default function Saved() {
             Download PDF
           </button>
 
-          <button
-            class="mr-2 mb-2"
-            onClick={() => {
-              console.log("TODO: inport data");
-            }}
-          >
-            Import Data
-          </button>
+          <br />
+          
+          {/* @ts-ignore */}
+          <hr color="#777" />
+      
+          <label class="block pt-2 pb-1 pl-2">Import Data</label>
 
+          <input
+            class="block"
+            type="file"
+            accept=".json"
+            onChange={(event) => {
+              const target = event.target as HTMLInputElement;
+              const file = target?.files?.[0];
+              if (file && file.type === "application/json") {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                  const json = event.target?.result as string;
+                  const data = JSON.parse(json) as {
+                    contracts: IContract[],
+                    owners: IOwner[],
+                    properties: IProperty[],
+                    tenants: ITenant[],
+                  };
+
+                  if (data && typeof data === "object") {
+                    const { contracts, owners, properties, tenants } = data;
+                    if (contracts && contracts.length > 0) {
+                      db.contracts.bulkAdd(contracts
+                        .map((contract) => {
+                          delete contract.id;
+                          return contract;
+                        }));
+                      db.owners.bulkAdd(owners
+                        .map((owner) => {
+                          delete owner.id;
+                          return owner;
+                        }));
+                      db.properties.bulkAdd(properties
+                        .map((property) => {
+                          delete property.id;
+                          return property;
+                        }));
+                      db.tenants.bulkAdd(tenants
+                        .map((tenant) => {
+                          delete tenant.id;
+                          return tenant;
+                        }));
+                    }
+                  }
+
+                  console.log("[Contracts] Data Imported Succesfully");
+                };
+                reader.readAsText(file);
+              }
+            }} />
+
+          <label class="block pt-2 pb-1 pl-2">Export Data</label>
           <button
-            class="mr-2 mb-2"
+            class="block"
             onClick={async () => {
               const owners = await db.owners.toArray();
               const properties = await db.properties.toArray();
@@ -79,6 +129,22 @@ export default function Saved() {
             }}
           >
             Export Data
+          </button>
+
+          <label class="block pt-2 pb-1 pl-2">Clear Data</label>
+          <button
+            class="block"
+            onClick={async () => {
+              db.owners.clear();
+              db.properties.clear();
+              db.tenants.clear();
+              db.contracts.clear();
+              localStorage.clear();
+
+              console.log("[Contracts] Data Cleared Succesfully");
+            }}
+          >
+            Clear Data
           </button>
         </div>
         <br />

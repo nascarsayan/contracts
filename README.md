@@ -22,3 +22,5 @@ bin/preact
 
 - Change binary name in the `Makefile`
 - Change app name in `package.json` and `package-lock.json` and `src/manifest.json`
+
+😮

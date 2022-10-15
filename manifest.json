@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json.schemastore.org/web-manifest-combined.json",
+  "name": "Contracts",
+  "short_name": "contracts",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#1a1a1a",
+  "description": "A simple contract management app",
+  "icons": [{
+    "src": "vite.svg",
+    "sizes": "256x256",
+    "type": "image/svg+xml"
+  }]
+}

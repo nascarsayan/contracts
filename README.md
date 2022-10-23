@@ -15,12 +15,5 @@ make build-preact
 make build-go
 
 # run the binary
-bin/preact
+bin/contracts
 ```
-
-## Notes
-
-- Change binary name in the `Makefile`
-- Change app name in `package.json` and `package-lock.json` and `src/manifest.json`
-
-😮

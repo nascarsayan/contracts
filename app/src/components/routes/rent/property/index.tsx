@@ -1,3 +1,4 @@
+import { h } from "preact";
 import { useEffect, useMemo, useState } from "preact/hooks";
 import { route } from "preact-router";
 
@@ -68,10 +69,18 @@ function Form({ onSubmit }: FormProps) {
 
   const [isSaved, setIsSaved] = useState<boolean>(false);
 
-  const requiredFields = [name, municipality, street, city, state, country, zip];
+  const requiredFields = [
+    name,
+    municipality,
+    street,
+    city,
+    state,
+    country,
+    zip,
+  ];
 
   const isVaild = useMemo(() => {
-    return (requiredFields.filter((field) => field === "").length === 0);
+    return requiredFields.filter((field) => field === "").length === 0;
   }, requiredFields);
 
   useEffect(() => {

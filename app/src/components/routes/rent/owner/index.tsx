@@ -1,3 +1,4 @@
+import { h } from "preact";
 import { useEffect, useMemo, useState } from "preact/hooks";
 import { route } from "preact-router";
 
@@ -84,10 +85,10 @@ function Form({ onSubmit }: FormProps) {
     state,
     country,
     zip,
-  ]
+  ];
 
   const isVaild = useMemo(() => {
-    return (requiredFields.filter((field) => field === "").length === 0);
+    return requiredFields.filter((field) => field === "").length === 0;
   }, requiredFields);
 
   useEffect(() => {

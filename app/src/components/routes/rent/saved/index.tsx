@@ -1,3 +1,4 @@
+import { h } from "preact";
 import { useEffect, useState } from "preact/hooks";
 import { route } from "preact-router";
 
@@ -45,10 +46,10 @@ export default function Saved() {
           </button>
 
           <br />
-          
+
           {/* @ts-ignore */}
           <hr color="#777" />
-      
+
           <label class="block pt-2 pb-1 pl-2">Import Data</label>
 
           <input
@@ -63,35 +64,39 @@ export default function Saved() {
                 reader.onload = (event) => {
                   const json = event.target?.result as string;
                   const data = JSON.parse(json) as {
-                    contracts: IContract[],
-                    owners: IOwner[],
-                    properties: IProperty[],
-                    tenants: ITenant[],
+                    contracts: IContract[];
+                    owners: IOwner[];
+                    properties: IProperty[];
+                    tenants: ITenant[];
                   };
 
                   if (data && typeof data === "object") {
                     const { contracts, owners, properties, tenants } = data;
                     if (contracts && contracts.length > 0) {
-                      db.contracts.bulkAdd(contracts
-                        .map((contract) => {
+                      db.contracts.bulkAdd(
+                        contracts.map((contract) => {
                           delete contract.id;
                           return contract;
-                        }));
-                      db.owners.bulkAdd(owners
-                        .map((owner) => {
+                        })
+                      );
+                      db.owners.bulkAdd(
+                        owners.map((owner) => {
                           delete owner.id;
                           return owner;
-                        }));
-                      db.properties.bulkAdd(properties
-                        .map((property) => {
+                        })
+                      );
+                      db.properties.bulkAdd(
+                        properties.map((property) => {
                           delete property.id;
                           return property;
-                        }));
-                      db.tenants.bulkAdd(tenants
-                        .map((tenant) => {
+                        })
+                      );
+                      db.tenants.bulkAdd(
+                        tenants.map((tenant) => {
                           delete tenant.id;
                           return tenant;
-                        }));
+                        })
+                      );
                     }
                   }
 
@@ -99,7 +104,8 @@ export default function Saved() {
                 };
                 reader.readAsText(file);
               }
-            }} />
+            }}
+          />
 
           <label class="block pt-2 pb-1 pl-2">Export Data</label>
           <button

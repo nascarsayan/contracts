@@ -1,3 +1,4 @@
+import { h } from "preact";
 import { useMemo, useState } from "preact/hooks";
 import { route } from "preact-router";
 
@@ -21,10 +22,17 @@ export default function Stay() {
   const [signDate, setSignDate] = useState<string>("");
   const [payDate, setPayDate] = useState<string>("5");
 
-  const requiredFields = [duration, rent, deposit, startDate, signDate, payDate];
+  const requiredFields = [
+    duration,
+    rent,
+    deposit,
+    startDate,
+    signDate,
+    payDate,
+  ];
 
   const isVaild = useMemo(() => {
-    return (requiredFields.filter((field) => field === "").length === 0);
+    return requiredFields.filter((field) => field === "").length === 0;
   }, requiredFields);
 
   const getContract = (): IContract => {
@@ -56,7 +64,7 @@ export default function Stay() {
       alert("Please fill all the fields");
       return;
     }
-    
+
     const contract = getContract();
 
     await db.contracts.add(contract);
@@ -71,8 +79,7 @@ export default function Stay() {
       <div class="md:w-1/2 p-10">
         <h1>Stay Details</h1>
         <p class="lg:w-96">
-        Please enter the details of the stay like
-        duration, rent, and deposit.
+          Please enter the details of the stay like duration, rent, and deposit.
         </p>
         <form class="">
           <FormElement

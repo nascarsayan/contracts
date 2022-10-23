@@ -1,3 +1,4 @@
+import { h } from "preact";
 import { useEffect, useMemo, useState } from "preact/hooks";
 import { route } from "preact-router";
 
@@ -28,8 +29,8 @@ export default function Tenant() {
       <div class="md:w-1/2 p-10">
         <h1>Tenant Details</h1>
         <p class="lg:w-96">
-        Lorem Ipsum is simply dummy text of
-        the printing and typesetting industry.
+          Lorem Ipsum is simply dummy text of the printing and typesetting
+          industry.
         </p>
         <Form onSubmit={onSubmit} />
       </div>
@@ -85,10 +86,10 @@ function Form({ onSubmit }: FormProps) {
     state,
     country,
     zip,
-  ]
+  ];
 
   const isVaild = useMemo(() => {
-    return (requiredFields.filter((field) => field === "").length === 0);
+    return requiredFields.filter((field) => field === "").length === 0;
   }, requiredFields);
 
   useEffect(() => {
@@ -294,7 +295,7 @@ interface CardProps {
   onDeleteClick: () => void;
 }
 
-function Card({ tenant, active, onClick, onDeleteClick}: CardProps) {
+function Card({ tenant, active, onClick, onDeleteClick }: CardProps) {
   return (
     <TextCard
       head={tenant.name}

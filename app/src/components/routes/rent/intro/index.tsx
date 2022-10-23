@@ -1,3 +1,4 @@
+import { h } from "preact";
 import { route } from "preact-router";
 
 export type Props = {};
@@ -8,9 +9,8 @@ export default function Intro({}: Props) {
       <h1>Property Rents Contracts</h1>
       <br />
       <p class="md:w-96">
-        Create a property rent contract for your tenants.
-        In the next steps you will be asked to enter the details
-        of the owner, property, and tenant.
+        Create a property rent contract for your tenants. In the next steps you
+        will be asked to enter the details of the owner, property, and tenant.
       </p>
       <br />
       <div class="space-x-2">

@@ -1,3 +1,4 @@
+import { h } from "preact";
 import { route } from "preact-router";
 import { useEffect, useState } from "preact/hooks";
 import { IContract, Gender, Address } from "../../../../db";

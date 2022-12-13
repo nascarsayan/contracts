@@ -61,6 +61,7 @@ interface FormProps {
 function Form({ onSubmit }: FormProps) {
   const [name, setName] = useState<string>("");
   const [gender, setGender] = useState<Gender>(Gender.Male);
+  const [isMarried, setIsMarried] = useState<boolean>(true);
   const [guardian, setGuardian] = useState<string>("");
   const [relationToGuardian, setRelationToGuardian] = useState<string>("");
   const [faith, setFaith] = useState<string>("");
@@ -97,6 +98,7 @@ function Form({ onSubmit }: FormProps) {
       const tenant = e.detail as ITenant;
       setName(tenant.name);
       setGender(tenant.gender);
+      setIsMarried(tenant.isMarried);
       setGuardian(tenant.guardian);
       setRelationToGuardian(tenant.relationToGuardian);
       setFaith(tenant.faith);
@@ -129,6 +131,7 @@ function Form({ onSubmit }: FormProps) {
     const tenant: ITenant = {
       name,
       gender,
+      isMarried,
       guardian,
       relationToGuardian,
       faith,
@@ -180,6 +183,20 @@ function Form({ onSubmit }: FormProps) {
           <option value={Gender.Male}>{Gender.Male}</option>
           <option value={Gender.Female}>{Gender.Female}</option>
         </select>
+      </div>
+
+      <div class="flex items-center gap-x-3 pt-4 pb-2 pl-2">
+        <label for="isMarried" class="block">
+          Married:{" "}
+        </label>
+        <input
+          type="checkbox"
+          defaultChecked={isMarried}
+          onChange={(e) => {
+            setIsMarried(!isMarried);
+            setIsSaved(false);
+          }}
+        />
       </div>
 
       <FormElement

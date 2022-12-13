@@ -119,13 +119,14 @@ export function GenerateContractPDF(contract: IContract) {
   interface IName {
     name: string;
     gender: Gender;
+    isMarried: boolean;
   }
-  const toNameString = ({ name, gender }: IName): string => {
+  const toNameString = ({ name, gender, isMarried }: IName): string => {
     const gender2Prefix = {
-      Male: "Sri.",
-      Female: "Smt.",
+      Male: (isMarried: boolean) => isMarried ? "Sri.": "Kumar",
+      Female: (isMarried: boolean) => isMarried ? "Smt.": "Kumari",
     };
-    return `${gender2Prefix[gender]} ${name}`.toUpperCase();
+    return `${gender2Prefix[gender](isMarried)} ${name}`.toUpperCase();
   };
   const toAddressString = ({ street, city, state, zip }: Address) => {
     return `${street}, ${city}, ${state}, ${zip}`;

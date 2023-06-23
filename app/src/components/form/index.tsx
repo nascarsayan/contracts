@@ -1,3 +1,4 @@
+import { h } from "preact";
 import "./index.css";
 
 export type FormElementProps = {

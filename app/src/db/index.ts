@@ -37,6 +37,7 @@ export interface IOwner {
   name: string;
   gender: Gender;
   guardian: string;
+  isMarried: boolean;
   relationToGuardian: string;
   faith: string;
   nationality: string;
@@ -49,6 +50,7 @@ export interface ITenant {
   id?: number;
   name: string;
   gender: Gender;
+  isMarried: boolean;
   guardian: string;
   relationToGuardian: string;
   faith: string;

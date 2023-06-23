@@ -1,3 +1,4 @@
+import { h } from "preact";
 export type Props = {
   head?: string;
   texts: string[];
@@ -17,26 +18,29 @@ export default function TextCard({
 }: Props) {
   return (
     <div class="flex items-start cursor-pointer" hidden={hidden}>
-    <div
-      class="px-4 py-2 rounded-lg"
-      style={{
-        backgroundColor: active ? "#eef" : "#fee",
-      }}
-      onClick={onClick}
-    >
-      {head ? <p class="font-bold text-lg m-0">{head}</p> : null}
-      {texts.map((text, index) => (
-        <p class="text-base m-0" key={index}>
-          {text}
-        </p>
-      ))}
-    </div>
-    <button
-      class="-ml-16"
-      style={{
-        backgroundColor: active ? "#eef" : "#fee",
-      }}
-      onClick={onDeleteClick}>❌</button>
+      <div
+        class="px-4 py-2 rounded-lg"
+        style={{
+          backgroundColor: active ? "#eef" : "#fee",
+        }}
+        onClick={onClick}
+      >
+        {head ? <p class="font-bold text-lg m-0">{head}</p> : null}
+        {texts.map((text, index) => (
+          <p class="text-base m-0" key={index}>
+            {text}
+          </p>
+        ))}
+      </div>
+      <button
+        class="-ml-16"
+        style={{
+          backgroundColor: active ? "#eef" : "#fee",
+        }}
+        onClick={onDeleteClick}
+      >
+        ❌
+      </button>
     </div>
   );
 }

@@ -1,3 +1,4 @@
+import { h } from "preact";
 import { Route, Router } from "preact-router";
 
 import Intro from "../routes/rent/intro";

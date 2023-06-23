@@ -1,3 +1,4 @@
+import { h } from "preact";
 import { useEffect, useMemo, useState } from "preact/hooks";
 import { route } from "preact-router";
 
@@ -59,6 +60,7 @@ interface FormProps {
 function Form({ onSubmit }: FormProps) {
   const [name, setName] = useState<string>("");
   const [gender, setGender] = useState<Gender>(Gender.Male);
+  const [isMarried, setIsMarried] = useState<boolean>(true);
   const [guardian, setGuardian] = useState<string>("");
   const [relationToGuardian, setRelationToGuardian] = useState<string>("");
   const [faith, setFaith] = useState<string>("");
@@ -84,10 +86,10 @@ function Form({ onSubmit }: FormProps) {
     state,
     country,
     zip,
-  ]
+  ];
 
   const isVaild = useMemo(() => {
-    return (requiredFields.filter((field) => field === "").length === 0);
+    return requiredFields.filter((field) => field === "").length === 0;
   }, requiredFields);
 
   useEffect(() => {
@@ -95,6 +97,7 @@ function Form({ onSubmit }: FormProps) {
       const owner = e.detail as IOwner;
       setName(owner.name);
       setGender(owner.gender);
+      setIsMarried(owner.isMarried);
       setGuardian(owner.guardian);
       setRelationToGuardian(owner.relationToGuardian);
       setFaith(owner.faith);
@@ -127,6 +130,7 @@ function Form({ onSubmit }: FormProps) {
     const owner: IOwner = {
       name,
       gender,
+      isMarried,
       guardian,
       relationToGuardian,
       faith,
@@ -178,6 +182,20 @@ function Form({ onSubmit }: FormProps) {
           <option value={Gender.Male}>{Gender.Male}</option>
           <option value={Gender.Female}>{Gender.Female}</option>
         </select>
+      </div>
+
+      <div class="flex items-center gap-x-3 pt-4 pb-2 pl-2">
+        <label for="isMarried" class="block">
+          Married:{" "}
+        </label>
+        <input
+          type="checkbox"
+          defaultChecked={isMarried}
+          onChange={(e) => {
+            setIsMarried(!isMarried);
+            setIsSaved(false);
+          }}
+        />
       </div>
 
       <FormElement

@@ -234,7 +234,7 @@ textarea:focus-visible {
   a:hover {
     color: #747bff;
   }
-  button {
+  input, textarea, button {
     background-color: #f9f9f9;
   }
 }
@@ -276,4 +276,4 @@ textarea:focus-visible {
 
 
 
-/*# sourceMappingURL=ssr-bundle.b68b4.css.map*/
+/*# sourceMappingURL=ssr-bundle.8a949.css.map*/

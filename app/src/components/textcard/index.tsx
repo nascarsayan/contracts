@@ -20,7 +20,7 @@ export default function TextCard({
     <div
       class="px-4 py-2 rounded-lg"
       style={{
-        backgroundColor: active ? "#333" : "#1a1a1a",
+        backgroundColor: active ? "#eef" : "#fee",
       }}
       onClick={onClick}
     >
@@ -34,7 +34,7 @@ export default function TextCard({
     <button
       class="-ml-16"
       style={{
-        backgroundColor: active ? "#333" : "#1a1a1a",
+        backgroundColor: active ? "#eef" : "#fee",
       }}
       onClick={onDeleteClick}>❌</button>
     </div>

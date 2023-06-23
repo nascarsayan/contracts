@@ -95,7 +95,7 @@ textarea:focus-visible {
   a:hover {
     color: #747bff;
   }
-  button {
+  input, textarea, button {
     background-color: #f9f9f9;
   }
 }

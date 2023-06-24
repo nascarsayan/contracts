@@ -14,17 +14,17 @@ export default function Intro({}: Props) {
       <br />
       <div class="space-x-2">
         <button
-          href="/rent/owner"
+          href="/contracts/rent/owner"
           onClick={() => {
-            route("/rent/owner");
+            route("/contracts/rent/owner");
           }}
         >
           Create Contract
         </button>
         <button
-          href="/rent/saved"
+          href="/contracts/rent/saved"
           onClick={() => {
-            route("/rent/saved");
+            route("/contracts/rent/saved");
           }}
         >
           View Contracts

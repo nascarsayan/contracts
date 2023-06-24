@@ -44,20 +44,20 @@ export default function Done() {
         </button>
 
         <button
-          href="/rent/saved"
+          href="/contracts/rent/saved"
           onClick={() => {
             clear();
-            route("/rent/saved");
+            route("/contracts/rent/saved");
           }}
         >
           View Contracts
         </button>
 
         <button
-          href="/rent/intro"
+          href="/contracts/rent/intro"
           onClick={() => {
             clear();
-            route("/rent/intro");
+            route("/contracts/rent/intro");
           }}
         >
           Create New Contract

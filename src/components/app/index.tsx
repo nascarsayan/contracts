@@ -6,22 +6,22 @@ import Property from "../routes/rent/property";
 import Tenant from "../routes/rent/tenant";
 import Stay from "../routes/rent/stay";
 import Done from "../routes/rent/done";
+import Saved from "../routes/rent/saved";
 
 import "./index.css";
-import Saved from "../routes/rent/saved";
 
 export function App() {
   return (
     <div class="page">
       <Router>
-        <Route path="/" component={Saved} />
-        <Route path="/rent/intro" component={Intro} />
-        <Route path="/rent/owner" component={Owner} />
-        <Route path="/rent/property" component={Property} />
-        <Route path="/rent/tenant" component={Tenant} />
-        <Route path="/rent/stay" component={Stay} />
-        <Route path="/rent/done" component={Done} />
-        <Route path="/rent/saved" component={Saved} />
+        <Route path="/contracts/" component={Saved} />
+        <Route path="/contracts/rent/intro" component={Intro} />
+        <Route path="/contracts/rent/owner" component={Owner} />
+        <Route path="/contracts/rent/property" component={Property} />
+        <Route path="/contracts/rent/tenant" component={Tenant} />
+        <Route path="/contracts/rent/stay" component={Stay} />
+        <Route path="/contracts/rent/done" component={Done} />
+        <Route path="/contracts/rent/saved" component={Saved} />
       </Router>
     </div>
   );

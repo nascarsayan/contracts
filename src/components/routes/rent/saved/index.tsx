@@ -22,9 +22,9 @@ export default function Saved() {
         <div>
           <button
             class="mr-2 mb-2"
-            href="/rent/intro"
+            href="/contracts/rent/intro"
             onClick={() => {
-              route("/rent/intro");
+              route("/contracts/rent/intro");
             }}
           >
             Create New Contract

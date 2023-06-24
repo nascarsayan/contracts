@@ -70,7 +70,7 @@ export default function Stay() {
 
     localStorage.setItem("contract", JSON.stringify(contract));
 
-    route("/rent/done");
+    route("/contracts/rent/done");
   };
 
   return (

@@ -14,7 +14,7 @@ export default function Tenant() {
   }, []);
 
   const onSubmit = (_: Event) => {
-    route("/rent/stay");
+    route("/contracts/rent/stay");
   };
 
   const onClick = (tenant: ITenant, index: number) => {

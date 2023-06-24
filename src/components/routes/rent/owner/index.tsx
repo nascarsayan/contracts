@@ -14,7 +14,7 @@ export default function Owner() {
   }, []);
 
   const onSubmit = (_: Event) => {
-    route("/rent/property");
+    route("/contracts/rent/property");
   };
 
   const onClick = (owner: IOwner, index: number) => {

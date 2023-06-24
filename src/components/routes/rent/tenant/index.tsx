@@ -13,7 +13,7 @@ export default function Tenant() {
     db.tenants.limit(10).toArray().then(setTenants);
   }, []);
 
-  const onSubmit = (e: Event) => {
+  const onSubmit = (_: Event) => {
     route("/rent/stay");
   };
 
@@ -191,7 +191,7 @@ function Form({ onSubmit }: FormProps) {
         <input
           type="checkbox"
           defaultChecked={isMarried}
-          onChange={(e) => {
+          onChange={(_) => {
             setIsMarried(!isMarried);
             setIsSaved(false);
           }}

@@ -13,7 +13,7 @@ export default function Property() {
     db.properties.limit(10).toArray().then(setProperties);
   }, []);
 
-  const onSubmit = (e: Event) => {
+  const onSubmit = (_: Event) => {
     route("/rent/tenant");
   };
 

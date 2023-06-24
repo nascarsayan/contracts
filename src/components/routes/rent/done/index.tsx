@@ -189,7 +189,7 @@ export function GenerateContractPDF(contract: IContract) {
     return n;
   };
 
-  const totalRentMoney = contract.rent * contract.duration;
+  // const totalRentMoney = contract.rent * contract.duration;
 
   let marginX = 40;
   let marginY = 60;

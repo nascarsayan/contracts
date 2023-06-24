@@ -13,7 +13,7 @@ export default function Owner() {
     db.owners.limit(10).toArray().then(setOwners);
   }, []);
 
-  const onSubmit = (e: Event) => {
+  const onSubmit = (_: Event) => {
     route("/rent/property");
   };
 
@@ -190,7 +190,7 @@ function Form({ onSubmit }: FormProps) {
         <input
           type="checkbox"
           defaultChecked={isMarried}
-          onChange={(e) => {
+          onChange={(_) => {
             setIsMarried(!isMarried);
             setIsSaved(false);
           }}

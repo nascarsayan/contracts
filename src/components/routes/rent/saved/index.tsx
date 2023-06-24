@@ -5,7 +5,6 @@ import { db, IContract, IOwner, IProperty, ITenant } from "../../../../db";
 import TextCard from "../../../textcard";
 import jsPDF from "jspdf";
 import { GenerateContractPDF, PDF } from "../done";
-import { FormElement } from "../../../form";
 
 export default function Saved() {
   const [contracts, setContracts] = useState<IContract[]>([]);

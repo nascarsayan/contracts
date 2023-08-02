@@ -240,7 +240,7 @@ residing at ${toAddressString(contract.tenant.address)}, \
 hereinafter called the "LICENSEE" of the SECOND PART.
 
 WHEREAS the Licensor is the absolute Owner of \
-${toAddressString(contract.owner.address)}.
+${toAddressString(contract.property.address)}.
 
 AND WHEREAS the Licensee has approached the licensor for permission of using \
 ${contract.property.description} \

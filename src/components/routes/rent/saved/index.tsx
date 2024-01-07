@@ -187,11 +187,15 @@ interface CardProps {
 function Card({ contract, active, onClick, onDeleteClick }: CardProps) {
   let dates = "";
   try {
+    let [st, fl] = [contract.startDate, contract.endDate];
+    if (typeof st === "string") st = new Date(st);
+    if (typeof fl === "string") fl = new Date(fl);
     dates =
-      contract.startDate.toISOString().split("T")[0] +
+      st.toISOString().split("T")[0] +
       " to " +
-      contract.endDate.toISOString().split("T")[0];
+      fl.toISOString().split("T")[0];
   } catch (error) {
+    console.log(error);
     dates = "Unknown Start and End Date";
   }
   return (

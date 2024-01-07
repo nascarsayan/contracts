@@ -117,8 +117,8 @@ function getDefaultText(contract: IContract) {
   }
   const toNameString = ({ name, gender, isMarried }: IName): string => {
     const gender2Prefix = {
-      Male: (isMarried: boolean) => isMarried === false ? "Kumar" : "Sri.",
-      Female: (isMarried: boolean) => isMarried === false ? "Kumari" : "Smt.",
+      Male: (isMarried: boolean) => isMarried === false ? "Mr." : "Mr.",
+      Female: (isMarried: boolean) => isMarried === false ? "Ms." : "Mrs.",
     };
     return `${gender2Prefix[gender](isMarried)} ${name}`.toUpperCase();
   };

@@ -93,12 +93,7 @@ import { jsPDF } from "jspdf";
 
 const [Width, Height] = [595.28, 841.89];
 
-export function GenerateContractPDF(contract: IContract) {
-  const doc = new jsPDF({
-    orientation: "portrait",
-    unit: "pt",
-    format: "a4",
-  });
+function getDefaultText(contract: IContract) {
 
   const withOrdinal = (num: number) => {
     const s = ["th", "st", "nd", "rd"];
@@ -122,8 +117,8 @@ export function GenerateContractPDF(contract: IContract) {
   }
   const toNameString = ({ name, gender, isMarried }: IName): string => {
     const gender2Prefix = {
-      Male: (isMarried: boolean) => isMarried ? "Sri.": "Kumar",
-      Female: (isMarried: boolean) => isMarried ? "Smt.": "Kumari",
+      Male: (isMarried: boolean) => isMarried === false ? "Kumar" : "Sri.",
+      Female: (isMarried: boolean) => isMarried === false ? "Kumari" : "Smt.",
     };
     return `${gender2Prefix[gender](isMarried)} ${name}`.toUpperCase();
   };
@@ -189,31 +184,10 @@ export function GenerateContractPDF(contract: IContract) {
     return n;
   };
 
-  // const totalRentMoney = contract.rent * contract.duration;
-
-  let marginX = 40;
-  let marginY = 60;
-  let currentY = (Height * 2) / 3;
-  let currentX = Width / 2;
-  let fontWeight = "bold";
-  let fontSize = 30;
-  let lineGap = 20;
-
-  doc.setFontSize(fontSize);
-  doc.setFont("times", "normal", fontWeight);
-  doc.text("LICENSE AGREEMENT", currentX, currentY, { align: "center" });
-
-  currentY += fontSize + lineGap;
-  currentX = marginX;
-  fontSize = 16;
-  fontWeight = "normal";
-
-  doc.setFontSize(fontSize);
-  doc.setFont("times", "normal", fontWeight);
-
-  const text = `This License Agreement was made on the ${toDateString(
-    contract.signDate
-  )}
+  const text =
+    `This License Agreement was made on the ${toDateString(
+      contract.signDate
+    )}
 
 BETWEEN
 
@@ -323,6 +297,41 @@ THE WITHIN NAMED LICENSOR/LICENSEE
 
 IN THE PRESENCE OF:
 `;
+
+  return text;
+}
+
+export function GenerateContractPDF(contract: IContract) {
+
+  const text = getDefaultText(contract);
+
+  const doc = new jsPDF({
+    orientation: "portrait",
+    unit: "pt",
+    format: "a4",
+  });
+
+  // const totalRentMoney = contract.rent * contract.duration;
+
+  let marginX = 40;
+  let marginY = 60;
+  let currentY = (Height * 2) / 3;
+  let currentX = Width / 2;
+  let fontWeight = "bold";
+  let fontSize = 30;
+  let lineGap = 20;
+
+  doc.setFontSize(fontSize);
+  doc.setFont("times", "normal", fontWeight);
+  doc.text("LICENSE AGREEMENT", currentX, currentY, { align: "center" });
+
+  currentY += fontSize + lineGap;
+  currentX = marginX;
+  fontSize = 16;
+  fontWeight = "normal";
+
+  doc.setFontSize(fontSize);
+  doc.setFont("times", "normal", fontWeight);
 
   const lines = doc.splitTextToSize(text, Width - marginX * 2) as string[];
 

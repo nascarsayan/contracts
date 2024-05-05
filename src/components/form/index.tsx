@@ -47,8 +47,8 @@ export type SubmitButtonProps = {
 
 export function SubmitButton({ text, onClick }: SubmitButtonProps) {
   return (
-    <button class="block w-full" type="submit" onClick={onClick}>
-      {text}
+    <button class="block w-full bg-rose-300 dark:bg-rose-600 border-2 border-rose-600" type="submit" onClick={onClick}>
+      <span class="font-bold" >{text}</span>
     </button>
   );
 }

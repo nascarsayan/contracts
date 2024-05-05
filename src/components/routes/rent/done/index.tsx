@@ -313,9 +313,9 @@ export function GenerateContractPDF(contract: IContract) {
 
   // const totalRentMoney = contract.rent * contract.duration;
 
-  let marginX = 40;
-  let marginY = 60;
-  let currentY = (Height * 2) / 3;
+  let marginX = 70;
+  let marginY = 70;
+  let currentY = (Height * 1.9) / 3;
   let currentX = Width / 2;
   let fontWeight = "bold";
   let fontSize = 30;
@@ -335,10 +335,12 @@ export function GenerateContractPDF(contract: IContract) {
 
   const lines = doc.splitTextToSize(text, Width - marginX * 2) as string[];
 
-  let pageLines = lines.slice(0, 10);
+  const linesInFirstPage = 11;
+
+  let pageLines = lines.slice(0, linesInFirstPage);
   doc.text(pageLines, currentX, currentY);
 
-  let lineIndex = 10;
+  let lineIndex = linesInFirstPage;
   const linesPerPage = Math.trunc((Height - marginY * 2) / (1.15 * fontSize));
   while (lineIndex < lines.length) {
     currentY = marginY;
@@ -355,15 +357,17 @@ export function GenerateContractPDF(contract: IContract) {
     currentY = marginY;
     doc.addPage();
   }
-  currentY += 20;
+
+  const signLineHeight = 20;
+
+  currentY += signLineHeight;
   doc.text("1.", currentX, currentY);
 
   currentX = (Width * 2) / 3;
-  currentY += 20;
+  currentY += signLineHeight;
   doc.text("Signature of Licensor", currentX, currentY);
 
-  currentX -= 20;
-  currentY -= 20;
+  currentY -= signLineHeight;
   doc.line(currentX, currentY, currentX + (Width * 1) / 3 - marginX, currentY);
 
   currentX = marginX;
@@ -371,11 +375,10 @@ export function GenerateContractPDF(contract: IContract) {
   doc.text("2.", currentX, currentY);
 
   currentX = (Width * 2) / 3;
-  currentY += 20;
+  currentY += signLineHeight;
   doc.text("Signature of Licensee", currentX, currentY);
 
-  currentX -= 20;
-  currentY -= 20;
+  currentY -= signLineHeight;
   doc.line(currentX, currentY, currentX + (Width * 1) / 3 - marginX, currentY);
 
   return doc;

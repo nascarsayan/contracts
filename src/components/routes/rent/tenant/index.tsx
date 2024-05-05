@@ -28,8 +28,7 @@ export default function Tenant() {
       <div class="md:w-1/2 p-10">
         <h1>Tenant Details</h1>
         <p class="lg:w-96">
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry.
+          The tenant is the person who is temporarily using of the property.
         </p>
         <Form onSubmit={onSubmit} />
       </div>

@@ -31,16 +31,24 @@ export default function Saved() {
           </button>
 
           <button
-            class="mr-2 mb-2"
+            class={`mr-2 mb-2 ${
+              activeIndex !== -1 
+              ? " bg-rose-300 dark:bg-rose-600 border-2 border-rose-600"
+              : "cursor-not-allowed"}`}
             disabled={activeIndex === -1}
             onClick={() => {
               const contract = contracts[activeIndex];
               const tenantName = contract.tenant.name.replace(/\s+/g, "_");
-              const date = contract.startDate.toISOString().split("T")[0];
+              let date = "";
+              if (contract?.startDate) {
+                date = new Date(contract.startDate).toISOString().split("T")[0];
+              } else {
+                date = new Date().toISOString().split("T")[0];
+              }
               pdf?.save(`contract-${tenantName}-${date}.pdf`);
             }}
           >
-            Download PDF
+            ⬇️ Download PDF
           </button>
 
           <br />

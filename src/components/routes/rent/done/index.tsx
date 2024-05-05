@@ -26,7 +26,7 @@ export default function Done() {
 
   return (
     <div class="page-shrink">
-      <h1>Congratulations 🎉</h1>
+      <h1>Success! 🎉</h1>
       <p class="w-96">
         {" "}
         Your property tenant contract is ready. Download the PDF now or you can
@@ -34,13 +34,19 @@ export default function Done() {
       </p>
       <div class="space-x-2">
         <button
+          class={`bg-rose-300 dark:bg-rose-600 border-2 border-rose-600`}
           onClick={() => {
             const tenantName = contract?.tenant.name.replace(/\s+/g, "_");
-            const date = contract?.startDate.toISOString().split("T")[0];
+            let date = "";
+            if (contract?.startDate) {
+              date = new Date(contract.startDate).toISOString().split("T")[0];
+            } else {
+              date = new Date().toISOString().split("T")[0];
+            }
             pdf?.save(`contract-${tenantName}-${date}.pdf`);
           }}
         >
-          Download PDF
+          ⬇️ Download PDF
         </button>
 
         <button

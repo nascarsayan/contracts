@@ -10,7 +10,15 @@ export default function Tenant() {
   const [activeIndex, setActiveIndex] = useState<number>(-1);
 
   useEffect(() => {
-    db.tenants.limit(10).toArray().then(setTenants);
+    db.tenants.count().then(cnt => {
+      let offset = 0;
+      if (cnt > 30) {
+        offset = cnt - 30;
+      }
+      db.tenants.offset(offset).limit(30).toArray()
+        .then(tenants => tenants.sort((a, b) => a.name.localeCompare(b.name)))
+        .then(setTenants);
+    });
   }, []);
 
   const onSubmit = (_: Event) => {

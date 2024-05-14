@@ -10,6 +10,15 @@ export default function Property() {
   const [activeIndex, setActiveIndex] = useState<number>(-1);
 
   useEffect(() => {
+    db.properties.count().then(cnt => {
+      let offset = 0;
+      if (cnt > 30) {
+        offset = cnt - 30;
+      }
+      db.properties.offset(offset).limit(30).toArray()
+        .then(properties => properties.sort((a, b) => a.name.localeCompare(b.name)))
+        .then(setProperties);
+    });
     db.properties.limit(10).toArray().then(setProperties);
   }, []);
 

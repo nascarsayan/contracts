@@ -12,7 +12,10 @@ export default function Saved() {
   const [pdf, setPDF] = useState<jsPDF | null>(null);
 
   useEffect(() => {
-    db.contracts.toArray().then(setContracts);
+    // Show newer contracts first.
+    db.contracts.toArray()
+      .then(contracts => contracts.sort((a, b) => a.startDate > b.startDate ? -1 : 1))
+      .then(setContracts);
   }, []);
 
   return (
